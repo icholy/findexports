@@ -10,8 +10,17 @@ import (
 )
 
 func main() {
+	input := os.Stdin
+	if len(os.Args) > 1 {
+		f, err := os.Open(os.Args[0])
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer f.Close()
+		input = f
+	}
 	parser := syntax.NewParser()
-	file, err := parser.Parse(os.Stdin, "env")
+	file, err := parser.Parse(input, "")
 	if err != nil {
 		log.Fatal(err)
 	}
