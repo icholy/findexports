@@ -18,3 +18,6 @@ AWS_ACCOUNT_ID="23749274927458"
 $ go install github.com/icholy/findexports@latest
 ```
 
+## Notes:
+
+This output format is compatible with [env-cmd](https://www.npmjs.com/package/env-cmd).
