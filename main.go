@@ -12,7 +12,7 @@ import (
 func main() {
 	input := os.Stdin
 	if len(os.Args) > 1 {
-		f, err := os.Open(os.Args[0])
+		f, err := os.Open(os.Args[1])
 		if err != nil {
 			log.Fatal(err)
 		}
