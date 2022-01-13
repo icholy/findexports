@@ -12,3 +12,9 @@ LAMBDA_REGION="us-east-1"
 AWS_ACCOUNT_ID="23749274927458"
 ```
 
+## Install
+
+```
+$ go install github.com/icholy/findexports@latest
+```
+
