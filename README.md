@@ -21,4 +21,5 @@ $ go install github.com/icholy/findexports@latest
 
 ## Notes:
 
-This output format is compatible with [env-cmd](https://www.npmjs.com/package/env-cmd).
+* This output format is compatible with [env-cmd](https://www.npmjs.com/package/env-cmd).
+* This output can be pasted directly into the InteliJ env variable table.
