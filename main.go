@@ -1,8 +1,7 @@
 package main
 
 import (
-	"bytes"
-	"fmt"
+	"bufio"
 	"log"
 	"os"
 
@@ -24,21 +23,23 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	var value bytes.Buffer
 	printer := syntax.NewPrinter()
+	output := bufio.NewWriter(os.Stdout)
 	syntax.Walk(file, func(node syntax.Node) bool {
 		if decl, ok := node.(*syntax.DeclClause); ok && decl.Variant.Value == "export" {
 			for _, assign := range decl.Args {
 				if len(decl.Args) != 1 {
 					log.Fatalf("expected export to have 1 argument, got %d", len(decl.Args))
 				}
-				value.Reset()
-				if err := printer.Print(&value, decl.Args[0].Value); err != nil {
-					log.Fatal(err)
-				}
-				fmt.Printf("%s=%s\n", assign.Name.Value, value.String())
+				output.WriteString(assign.Name.Value)
+				output.WriteByte('=')
+				printer.Print(output, decl.Args[0].Value)
+				output.WriteByte('\n')
 			}
 		}
 		return true
 	})
+	if err := output.Flush(); err != nil {
+		log.Fatal(err)
+	}
 }
