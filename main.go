@@ -27,10 +27,10 @@ func main() {
 	output := bufio.NewWriter(os.Stdout)
 	syntax.Walk(file, func(node syntax.Node) bool {
 		if decl, ok := node.(*syntax.DeclClause); ok && decl.Variant.Value == "export" {
+			if len(decl.Args) != 1 {
+				log.Fatalf("expected export to have 1 argument, got %d", len(decl.Args))
+			}
 			for _, assign := range decl.Args {
-				if len(decl.Args) != 1 {
-					log.Fatalf("expected export to have 1 argument, got %d", len(decl.Args))
-				}
 				output.WriteString(assign.Name.Value)
 				output.WriteByte('=')
 				printer.Print(output, decl.Args[0].Value)
